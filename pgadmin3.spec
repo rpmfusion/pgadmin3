@@ -1,7 +1,7 @@
 Summary:	Graphical client for PostgreSQL
 Name:		pgadmin3
 Version:	1.8.4
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	Artistic
 Group:		Applications/Databases
 URL:		http://www.pgadmin.org/
@@ -33,6 +33,7 @@ to communicate with the database server.
 for f in configure{,.ac}; do touch -r $f $f.stamp; done
 %patch0 -p1
 for f in configure{,.ac}; do touch -r $f.stamp $f; done
+sed -e 's@"/docs"@"../doc/%{name}-%{version}"@' -i pgadmin/pgAdmin3.cpp
 
 %build
 export LIBS="-lwx_gtk2u_core-2.8"
@@ -66,8 +67,8 @@ for file in docs/*/tips.txt; do
 done
 
 # Remove unwanted and double files
-rm -f docs/{Docs.vcproj,builddocs.bat,en_US/pgadmin3.hhp.cached}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/{branding,docs}
+rm -f docs/{Docs.vcproj,builddocs.bat}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/i18n/{*,.}/wxstd.mo
 
 # Correct permissions to solve rpmlint debuginfo noise
@@ -90,6 +91,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 
 %changelog
+* Thu Mar 19 2009 Robert Scheck <robert@fedoraproject.org> 1.8.4-6
+- Corrected pgadmin3 documentation path to avoid errors (#448)
+- Re-added the branding directory for some users (RHBZ #473748)
+
 * Mon Jan 05 2009 Robert Scheck <robert@fedoraproject.org> 1.8.4-5
 - Removed useless -docs package, main package shipped it anyway
 - Many spec file and package cleanups to get rpmlint very silent
