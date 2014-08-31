@@ -1,7 +1,7 @@
 Summary:	Graphical client for PostgreSQL
 Name:		pgadmin3
 Version:	1.8.4
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	Artistic
 Group:		Applications/Databases
 URL:		http://www.pgadmin.org/
@@ -91,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 
 %changelog
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.8.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Tue Mar 12 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.8.4-9
 - https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
